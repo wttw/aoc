@@ -41,7 +41,7 @@ func main() {
 			if len(kv) != 2 {
 				log.Fatal("dodgy field:", field)
 			}
-			
+
 			if kv[0] == "cid" {
 				continue
 			}
