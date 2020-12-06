@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"sort"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
-	max := 0
+	seats := []int{}
 	for scanner.Scan() {
 		value := 0
 		for _, digit := range scanner.Text() {
@@ -27,12 +28,17 @@ func main() {
 				log.Fatal("unexpected digit", digit)
 			}
 		}
-		if value > max {
-			max = value
-		}
+		seats = append(seats, value)
 	}
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	log.Print("max=", max)
+
+	sort.Ints(seats)
+	for i, v := range seats {
+		if seats[i+1] == v+2 {
+			log.Print("seat:", v+1)
+			break
+		}
+	}
 }
